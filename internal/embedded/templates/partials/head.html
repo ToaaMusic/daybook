@@ -83,8 +83,9 @@
   {{end}}
   <link rel="alternate" type="application/rss+xml" title="{{.SEO.SiteName}} RSS" {{if or (eq .SEO.Lang "zh_CN") (eq .SEO.Lang "zh")}}href="/rss.xml"{{else}}href="/{{.SEO.Lang}}/rss.xml"{{end}}>
   {{if .Config.Site.Favicon}}
-  <link rel="icon" href="/{{.Config.Site.Favicon}}">
-  <link rel="apple-touch-icon" href="/{{.Config.Site.Favicon}}">
+  {{$remote := or (hasPrefix .Config.Site.Favicon "http://") (hasPrefix .Config.Site.Favicon "https://")}}
+  <link rel="icon" href="{{if $remote}}{{.Config.Site.Favicon}}{{else}}/{{.Config.Site.Favicon}}{{end}}">
+  <link rel="apple-touch-icon" href="{{if $remote}}{{.Config.Site.Favicon}}{{else}}/{{.Config.Site.Favicon}}{{end}}">
   {{else}}
   <link rel="icon" href="{{.Assets.Path "/favicon.svg"}}">
   <link rel="apple-touch-icon" href="{{.Assets.Path "/favicon.png"}}">

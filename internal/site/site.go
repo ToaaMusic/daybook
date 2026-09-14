@@ -89,9 +89,12 @@ func Build(options Options) (BuildResult, error) {
 	}
 
 	if options.Config.Site.Favicon != "" {
-		faviconPath := filepath.Join(options.ContentDir, filepath.FromSlash(options.Config.Site.Favicon))
-		if _, err := os.Stat(faviconPath); err != nil {
-			return BuildResult{}, fmt.Errorf("favicon file not found: %s", options.Config.Site.Favicon)
+		favicon := options.Config.Site.Favicon
+		if !strings.HasPrefix(favicon, "http://") && !strings.HasPrefix(favicon, "https://") {
+			faviconPath := filepath.Join(options.ContentDir, filepath.FromSlash(favicon))
+			if _, err := os.Stat(faviconPath); err != nil {
+				return BuildResult{}, fmt.Errorf("favicon file not found: %s", favicon)
+			}
 		}
 	}
 

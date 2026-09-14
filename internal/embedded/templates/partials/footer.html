@@ -1,6 +1,6 @@
 {{define "copyright"}}
 {{if .Config.Site.Copyright}}
-<p class="{{.Class}}">{{.Config.Site.Copyright}}</p>
+<p class="{{.Class}}">{{safeHTML .Config.Site.Copyright}}</p>
 {{end}}
 {{end}}
 

@@ -798,6 +798,10 @@ func (r Renderer) render(outputPath, pageTemplate string, data any) error {
 			return template.URL(prefix + "/tags/" + seo.TagSlug(tag) + "/")
 		},
 		"tagSlug": seo.TagSlug,
+		"safeHTML": func(s string) template.HTML {
+			return template.HTML(s)
+		},
+		"hasPrefix": strings.HasPrefix,
 	})
 	tmpl, err = tmpl.ParseFS(embedded.FS, files...)
 	if err != nil {
